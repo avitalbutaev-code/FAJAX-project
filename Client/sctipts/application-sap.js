@@ -50,9 +50,6 @@ function renderView(viewId) {
       }
     }
     if (viewId === "login-template") {
-      document.getElementById("login-submit").addEventListener("click", () => {
-        renderView("home-template");
-      });
       document.getElementById("registerBtn").addEventListener("click", () => {
         renderView("register-template");
       });
@@ -67,7 +64,7 @@ function renderView(viewId) {
         currentUser = "";
       });
       document.getElementById("add-task").addEventListener("click", () => {
-        DBaddTask(currentUser);
+        addTask(currentUser);
       });
       document.getElementById("reduce-list").addEventListener("click", () => {
         deleteAllTasks(currentUser);
@@ -87,7 +84,7 @@ function renderView(viewId) {
       document
         .getElementById("delete-profile")
         .addEventListener("click", () => {
-          DBdeleteUser(currentUser);
+          deleteUser(currentUser);
         });
       document
         .getElementById("resset-password")
@@ -95,7 +92,7 @@ function renderView(viewId) {
           ressetPassword(currentUser);
         });
       document.getElementById("edit-name").addEventListener("click", () => {
-        DBchangeName(currentUser);
+        changeName(currentUser);
       });
     }
   }

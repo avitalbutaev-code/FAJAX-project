@@ -1,13 +1,25 @@
 function network(requestString) {
   console.log("In network");
-  // if (Math.random() > 0.5)
-  if (parseURL(JSON.parse(requestString).url).resource === "myserver") {
+
+  let requestPayload;
+  try {
+    requestPayload = JSON.parse(requestString);
+  } catch (e) {
+    return JSON.stringify({
+      status: 500,
+      text: "Error: Malformed request payload.",
+    });
+  }
+
+  const parsedURL = parseURL(requestPayload.url);
+  if (parsedURL.resource === "myserver") {
     return server(requestString);
   } else {
     console.log("Can't get to the source");
-  }
-  if (JSON.parse(requestString).resourse.status === "200") {
-    return requestString;
+    return JSON.stringify({
+      status: 404,
+      text: "Network destination not recognized.",
+    });
   }
 }
 

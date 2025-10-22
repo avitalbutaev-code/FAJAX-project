@@ -155,7 +155,7 @@ function DBgetPassword(username) {
 function DBgetTasks(username) {
   const usernameJSON = localStorage.getItem(username);
   if (!usernameJSON) {
-    console.error(`User '${username}' not found in Local Storage.`);
+    console.error(`User ${username} not found in Local Storage.`);
     return;
   } else {
     const userObject = JSON.parse(usernameJSON);

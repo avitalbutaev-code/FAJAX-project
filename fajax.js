@@ -26,9 +26,7 @@ class Request {
       url: this.url,
       body: this.body,
     });
-
     const rawResponse = network(payload);
-
     try {
       const parsedResponse = JSON.parse(rawResponse);
       this.response.status = parsedResponse.status;

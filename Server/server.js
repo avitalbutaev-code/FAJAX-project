@@ -1,34 +1,33 @@
 function server(requestString) {
   console.log("In server");
   const request = JSON.parse(requestString);
-  if (request.method === "GET" && parseURL(request.url).source === "myserver") {
-    if (parseURL(request.url).id === "users") {
-      request.response.text = DBget`${parseURL(request.url).subresource}`();
-      request.response.status = "200";
-      network(JSON.stringify(request));
+  const parsedURL = parseURL(request.url);
+  const username = parsedURL.id;
+
+  // --- GET Requests ---
+  if (request.method === "GET" && parsedURL.resource === "myserver") {
+    if (parsedURL.subresource === "tasks") {
+      const tasksString = DBgetTasks(username);
+
+      if (tasksString) {
+        return JSON.stringify({ status: 200, text: tasksString });
+      } else {
+        return JSON.stringify({
+          status: 404,
+          text: "Tasks or user not found.",
+        });
+      }
     }
-    return;
-  }
-  if (request.method === "POST" && request.url === "myserver/username/") {
-    request.body;
-  }
-  if (
-    request.method === "PUT" &&
-    request.url === "myserver/username/attribute"
-  ) {
-    if (request.url === "myserver/username/tasks") {
-      //add task
+    if (parsedURL.subresource === "name") {
+      const name = DBgetName(username);
+      return JSON.stringify({ status: 200, text: JSON.stringify(name) });
     }
-  }
-  if (request.method === "GET" && request.url === "myserver/username") {
-    // user info-name,username
   }
 
-  if (request.method === "DELETE" && request.url === "myserver/username") {
-  }
-  if (
-    request.method === "DELETE" &&
-    request.url === "myserver/username/attribute"
-  ) {
-  }
+  // --- POST/PUT/DELETE logic would go here ---
+
+  return JSON.stringify({
+    status: 400,
+    text: "Bad Request or Unimplemented Endpoint.",
+  });
 }
