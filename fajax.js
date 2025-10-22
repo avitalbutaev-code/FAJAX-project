@@ -3,6 +3,7 @@ class Request {
     this.body = "";
     this.method = "";
     this.url = "";
+    this.response = "";
   }
   open(method, url, body) {
     this.method = method;
@@ -13,7 +14,6 @@ class Request {
     this.body = body;
   }
   send() {
-    network({ method: this.method, url: this.url, body: this.body });
-    return;
+    return network({ method: this.method, url: this.url, body: this.body });
   }
 }

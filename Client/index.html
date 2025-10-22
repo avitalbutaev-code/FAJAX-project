@@ -3,17 +3,85 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Reduce!</title>
+    <link rel="stylesheet" href="./style.css">
   </head>
   <body>
-    <h1>Reduce it!</h1>
-    <h1>Your universe orginizer</h1>
-    <input type="text" id="item-input" placeholder="Add new item" />
-    <button type="submit" id="btn-send">Add Item</button>
+    <body>
+    <div id="main-card">
+      <template id="login-template">
+        <h1 class="page-heading">Log In</h1>
+        <button id="registerBtn">Sighn Up</button>
+        <form id="login-container" class="form-container">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            pattern="[a-zA-Z0-9]+"
+            minlength="4"
+            required
+            
+          />
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            minlength="4"
+            required
+          />
+          
+        </form>
+        <button id="login-submit">Log In</button>
+      </template>
+
+      <template id="register-template">
+        <h1 class="page-heading">Sighn Up</h1>
+         <button id="loginBtn">Log In</button>
+        <form id="register-container" class="form-container">
+          <label for="reg-username"  placeholder="Username">Username</label>
+          <input id="reg-username" name="username" type="text"  pattern="[a-zA-Z0-9]+" required />
+          <label for="reg-name"  placeholder="Name">Name</label>
+          <input id="reg-name" name="name" type="text"  pattern="[a-zA-Z]+" required />
+          <label for="reg-password" >Password</label>
+          <input id="reg-password" name="password" type="password" placeholder="Password" minlength="4" required />
+          <label for="reg-confirm-password" >Confirm password</label>
+          <input id="reg-confirm-password" name="password" type="password" minlength="4"  placeholder="Confirm Password" required />
+        </form> <button id="reg-submit">Sighn Up</button>
+      </template>
+
+      <template id="home-template">
+        <div id="home">
+          <p id="name">User's name</p>
+          <h1 class="page-heading">Your Tasks:</h1>
+          <ol id="tasks-holder">
+          </ol>
+          <input type="text" id="task-input" placeholder="Add new task" />
+          <button id="add-task">Add</button>
+          <button id="reduce-list">Reduce all tasks</button>
+           <button type="button" id="profileBtn">Profile</button>
+          <button type="button" id="logoutBtn">Log Out</button>
+        </div>
+      </template>
+      <template id="profile-template">
+        <div id="profile">
+          <button type="button" id="homeBtn">My List</button>
+          <h1 class="page-heading">Profile</h1>
+          <p id="user-info">User's info</p>
+          <button id="edit-name">Edit Name</button>
+          <button id="resset-password">Resset password</button>
+          <button id="delete-profile">Delete profile</button>
+          <button type="button" id="logoutBtn">Log Out</button>
+        </div>
+      </template>
+      <div id="app-container"></div>
+    </div>
   </body>
   <script src="../Database/database.js"></script>
   <script src="../Server/server.js"></script>
   <script src="../network.js"></script>
   <script src="../fajax.js"></script>
-  <script src="./sctipts/application.js"></script>
+  <script src="./sctipts/application-requests.js"></script>
+  <script src="./sctipts/application-sap.js"></script>
 </html>
