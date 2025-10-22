@@ -13,7 +13,7 @@ class Request {
     this.body = body;
   }
   send() {
-    server({ method: this.method, url: this.url, body: this.body });
+    network({ method: this.method, url: this.url, body: this.body });
     return;
   }
 }
