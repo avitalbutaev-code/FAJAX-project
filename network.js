@@ -2,11 +2,15 @@ function network(requestString) {
   console.log("In network");
   // if (Math.random() > 0.5)
   if (parseURL(JSON.parse(requestString).url).resource === "myserver") {
-    server(requestString);
+    return server(requestString);
   } else {
     console.log("Can't get to the source");
   }
+  if (JSON.parse(requestString).resourse.status === "200") {
+    return requestString;
+  }
 }
+
 function parseURL(url) {
   const parts = url.split("/");
   return {

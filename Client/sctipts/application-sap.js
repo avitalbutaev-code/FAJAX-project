@@ -67,7 +67,7 @@ function renderView(viewId) {
         currentUser = "";
       });
       document.getElementById("add-task").addEventListener("click", () => {
-        addTask(currentUser);
+        DBaddTask(currentUser);
       });
       document.getElementById("reduce-list").addEventListener("click", () => {
         deleteAllTasks(currentUser);
@@ -87,7 +87,7 @@ function renderView(viewId) {
       document
         .getElementById("delete-profile")
         .addEventListener("click", () => {
-          deleteUser(currentUser);
+          DBdeleteUser(currentUser);
         });
       document
         .getElementById("resset-password")
@@ -95,7 +95,7 @@ function renderView(viewId) {
           ressetPassword(currentUser);
         });
       document.getElementById("edit-name").addEventListener("click", () => {
-        changeName(currentUser);
+        DBchangeName(currentUser);
       });
     }
   }

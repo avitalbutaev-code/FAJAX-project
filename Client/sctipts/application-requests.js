@@ -13,12 +13,14 @@ function checkPassword() {
 function printAllTasks(username) {
   const request = new Request();
   request.open("GET", "myserver/" + username + "tasks");
-  request.send();
-  const responce = request.responce;
-  request.forEach((element) => {
-    if (element !== undefined)
+  request.onload = () => {
+    const responce = JSON.parse(request.response);
+    responce.text.forEach((element) => {
+      // if (element !== undefined)
       document.getElementById("tasks-holder").innerHTML =
         "<li>" + element + "</li>";
-  });
+    });
+  };
+  request.send();
 }
-function addTask(user) {}
+function DBaddTask(user) {}

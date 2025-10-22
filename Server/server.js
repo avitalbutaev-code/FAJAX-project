@@ -1,6 +1,13 @@
 function server(requestString) {
+  console.log("In server");
   const request = JSON.parse(requestString);
   if (request.method === "GET" && parseURL(request.url).source === "myserver") {
+    if (parseURL(request.url).id === "users") {
+      request.response.text = DBget`${parseURL(request.url).subresource}`();
+      request.response.status = "200";
+      network(JSON.stringify(request));
+    }
+    return;
   }
   if (request.method === "POST" && request.url === "myserver/username/") {
     request.body;
