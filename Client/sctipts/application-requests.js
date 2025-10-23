@@ -70,8 +70,17 @@ function printAllTasks(username) {
       tasksArray.forEach((element, index) => {
         if (index !== 0) {
           //line for hover: adds class="task-item" and data-index
-          tasksHolder.innerHTML += `<li class="task-item" data-index"${index}>${element}</li>`;
+          tasksHolder.innerHTML += `<li class="task-item" data-index="${index}">${element}</li>`;
         }
+      });
+
+      tasksHolder.querySelectorAll(".task-item").forEach((listItem) => {
+        listItem.addEventListener("click", (e) => {
+          const indexToDelete = listItem.getAttribute("data-index");
+          if (indexToDelete) {
+            deleteTask(username, indexToDelete);
+          }
+        });
       });
     } catch (e) {
       console.error("Error parsing tasks data or processing array:", e);
@@ -138,3 +147,16 @@ function addNewUser(username, name, password) {
   };
   return request.send();
 }
+// function printNameAndUsername() {
+//   const request = new FajaxRequest();
+//   request.open("GET", `myserver/${username}`);
+//   request.onload = () => {
+//     if (request.response.status != 200) {
+//       console.error(
+//         `Failed to load info. Status: ${request.response.status}`,
+//         request.response.text
+//       );
+//       return ;
+//     }
+//   };
+// }
