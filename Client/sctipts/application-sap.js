@@ -86,10 +86,10 @@ function renderView(viewId) {
 
     if (viewId === "profile-template") {
       document.getElementById("user-info").innerHTML =
-        printNameAndUsername(currentUser);
-      document.getElementById("homeBtn").addEventListener("click", () => {
-        renderView("home-template");
-      });
+        // printNameAndUsername(currentUser);
+        document.getElementById("homeBtn").addEventListener("click", () => {
+          renderView("home-template");
+        });
       document.getElementById("logoutBtn").addEventListener("click", () => {
         renderView("login-template");
         currentUser = "";

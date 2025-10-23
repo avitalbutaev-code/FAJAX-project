@@ -37,3 +37,15 @@
 }
 #tasks-holder {
     list-style-type: decimal;}
+
+    /* style.css (Remove these blocks if you are not using the delete button) */
+
+.delete-task-btn {
+    /* ... all its styles ... */
+    opacity: 0; /* Initially hidden */
+}
+
+.task-item:hover .delete-task-btn {
+    /* ... */
+    opacity: 1; /* Show on hover */
+}

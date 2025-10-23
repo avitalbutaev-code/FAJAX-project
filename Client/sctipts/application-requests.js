@@ -70,8 +70,17 @@ function printAllTasks(username) {
       tasksArray.forEach((element, index) => {
         if (index !== 0) {
           //line for hover: adds class="task-item" and data-index
-          tasksHolder.innerHTML += `<li class="task-item" data-index"${index}>${element}</li>`;
+          tasksHolder.innerHTML += `<li class="task-item" data-index="${index}">${element}</li>`;
         }
+      });
+
+      tasksHolder.querySelectorAll(".task-item").forEach((listItem) => {
+        listItem.addEventListener("click", (e) => {
+          const indexToDelete = listItem.getAttribute("data-index");
+          if (indexToDelete) {
+            deleteTask(username, indexToDelete);
+          }
+        });
       });
     } catch (e) {
       console.error("Error parsing tasks data or processing array:", e);
@@ -82,7 +91,7 @@ function printAllTasks(username) {
 }
 
 function addTask(username, newTask) {
-  const request = new Request();
+  const request = new FajaxRequest();
   request.open("PUT", `myserver/${username}/tasks`, newTask);
   request.onload = () => {
     printAllTasks(username);
@@ -91,7 +100,7 @@ function addTask(username, newTask) {
 }
 
 function deleteAllTasks(username) {
-  const request = new Request();
+  const request = new FajaxRequest();
   request.open("DELETE", `myserver/${username}/tasks/all`);
   request.onload = () => {
     if (request.response.status === 200) {
@@ -105,7 +114,7 @@ function deleteAllTasks(username) {
 }
 
 function deleteTask(username, index) {
-  const request = new Request();
+  const request = new FajaxRequest();
   request.open("DELETE", `myserver/${username}/tasks/${index}`);
   request.onload = () => {
     if (request.response.status === 200) {
