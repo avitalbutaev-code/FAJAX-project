@@ -1,11 +1,11 @@
-class Request {
+class FajaxRequest {
   constructor() {
     this.body = "";
     this.method = "";
     this.url = "";
     this.response = {
       status: "",
-      text: "",
+      text: null,
     };
     this.onload = null;
   }
@@ -27,16 +27,19 @@ class Request {
       body: this.body,
     });
     const rawResponse = network(payload);
+    console.log(rawResponse);
     try {
       const parsedResponse = JSON.parse(rawResponse);
+      console.log(parsedResponse);
       this.response.status = parsedResponse.status;
       this.response.text = parsedResponse.text || parsedResponse.responseText;
+      const responseText = this.response.text;
     } catch (e) {
       this.response.status = 500;
       this.response.text = "Error: Could not parse response.";
     }
     if (typeof this.onload === "function") {
-      this.onload();
+      return this.onload();
     }
   }
 }

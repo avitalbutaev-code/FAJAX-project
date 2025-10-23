@@ -12,6 +12,7 @@ function network(requestString) {
   }
 
   const parsedURL = parseURL(requestPayload.url);
+  console.log(parseURL);
   if (parsedURL.resource === "myserver") {
     return server(requestString);
   } else {
