@@ -52,10 +52,7 @@ function server(requestString) {
   }
 
   // --- POST/PUT/DELETE logic would go here ---
-  if (request.method === "POST" && parsedURL.resource === "myserver") {
-    if (parsedURL.id === "register") {
-    }
-  }
+
   // --- PUT here ---
   if (request.method === "PUT" && parsedURL.resource === "myserver") {
     if (parsedURL.subresource === "tasks") {
@@ -110,9 +107,23 @@ function server(requestString) {
   }
 
   //POST here
-
-  return JSON.stringify({
-    status: 400,
-    text: "Bad Request or Unimplemented Endpoint.",
-  });
+  if (request.method === "POST" && parsedURL.resource === "myserver") {
+    if (parsedURL.subresource === "register") {
+      const userObject = JSON.parse(request.body);
+      const registrationUsername = username;
+      const hasAdded = DBsavesNewUser(registrationUsername, userObject);
+      console.log(hasAdded);
+      if (hasAdded) {
+        return JSON.stringify({
+          status: 200,
+          text: "Has been added successfully",
+        });
+      } else {
+        return JSON.stringify({
+          status: 404,
+          text: "Registration failed",
+        });
+      }
+    }
+  }
 }

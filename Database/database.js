@@ -48,13 +48,20 @@ const davidUser = new User("david", "5555");
 davidUser.addTaskPrivate("Buy groceries");
 davidUser.addTaskPrivate("Buy cat");
 
+// function DBsavesNewUser(username, userObject) {
+//   const key = `${username}`;
+//   localStorage.setItem(key, JSON.stringify(userObject));
+//   console.log(`User '${username}' saved under key '${key}'.`);
+//   return true;
+// }
 function DBsavesNewUser(username, userObject) {
   const key = `${username}`;
   localStorage.setItem(key, JSON.stringify(userObject));
   console.log(`User '${username}' saved under key '${key}'.`);
+  return true;
 }
-DBsavesNewUser("pinkie", sharonUser);
-DBsavesNewUser("lol", davidUser);
+// DBsavesNewUser("pinkie", sharonUser);
+// DBsavesNewUser("lol", davidUser);
 
 function DBchangePassword(username, newpassword) {
   const usernameJSON = localStorage.getItem(username);

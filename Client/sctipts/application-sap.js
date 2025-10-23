@@ -36,12 +36,14 @@ function renderView(viewId) {
         });
         document.getElementById("reg-submit").addEventListener("click", () => {
           const username = document.getElementById("reg-username").value;
+          const name = document.getElementById("reg-name").value;
           const password = document.getElementById("reg-password").value;
           const confirm = document.getElementById("reg-confirm-password").value;
-          if (password === confirm && !checkExistanceOfUser()) {
+          if (password === confirm && !checkUserExists(username)) {
+            addNewUser(username, name, password);
             alert("Registration successful! Please log in.");
             renderView("login-template");
-          } else if (checkExistanceOfUser()) {
+          } else if (checkUserExists(username)) {
             alert("It seems you already have an account, please log in");
             renderView("login-template");
           } else {
@@ -86,10 +88,10 @@ function renderView(viewId) {
 
     if (viewId === "profile-template") {
       document.getElementById("user-info").innerHTML =
-        printNameAndUsername(currentUser);
-      document.getElementById("homeBtn").addEventListener("click", () => {
-        renderView("home-template");
-      });
+        // printNameAndUsername(currentUser);
+        document.getElementById("homeBtn").addEventListener("click", () => {
+          renderView("home-template");
+        });
       document.getElementById("logoutBtn").addEventListener("click", () => {
         renderView("login-template");
         currentUser = "";
