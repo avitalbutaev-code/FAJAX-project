@@ -1,51 +1,179 @@
-/* style.css */
+/* ========================================================= */
+/* 👽 PASTEL ALIEN SPACE THEME */
+/* ========================================================= */
+
+/* Define Pastel/Space Palette */
+:root {
+    --color-dark-space: #100628;     /* Deep Purple Background */
+    --color-card-bg: #FFFFFF;        /* Soft White Card */
+    --color-pastel-pink: #FFB3C6;    /* Primary Accent/Neon Pink */
+    --color-pastel-mint: #B8E0D2;    /* Secondary Accent/Mint */
+    --color-pastel-lavender: #C8B6FF; /* General Button/Pastel Purple */
+    --color-text-dark: #3a324a;      /* Dark Text (Deep Gray) */
+    --color-text-light: #8D99AE;     /* Soft Gray Text */
+    --color-shadow: rgba(141, 153, 174, 0.15); 
+        --color-pastel-darkmint: #a6d8c7;    /* Secondary Accent/Mint */
+
+}
+
+body {
+    background-color: var(--color-dark-space); 
+    background-image: radial-gradient(circle at 10% 90%, rgba(160, 129, 249, 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 90% 10%, rgba(255, 179, 198, 0.15) 0%, transparent 60%);
+    color: var(--color-text-dark); 
+    min-height: 100vh;
+    /* Cute, rounded font for general text */
+    font-family: 'Balsamiq Sans', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 50px;
+    margin: 0;
+}
+
+/* Style the main application card */
+#main-card {
+    background: var(--color-card-bg); 
+    border-radius: 25px; /* Extra roundness */
+    padding: 35px 45px;
+    border: 3px solid var(--color-pastel-lavender); /* Pastel border */
+    box-shadow: 0 12px 40px rgba(160, 129, 249, 0.3); /* Soft purple outer glow/shadow */
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box;
+}
+
+/* Big Titles (e.g., Log In, Your Tasks) - Alien Terminal Font */
+.page-heading, h1 {
+    /* Monospaced, angular font for a code/alien feel */
+    font-family: 'Major Mono Display', monospace; 
+    font-size: 2.8em; 
+    text-align: center;
+    color: var(--color-pastel-pink); /* Neon Pink */
+    text-shadow: 
+        0 0 5px var(--color-pastel-pink), /* Inner glow */
+        0 0 15px var(--color-pastel-pink); 
+    margin-bottom: 25px;
+    font-weight: 400; /* Monospaced fonts are often lighter */
+}
+
+/* Subtitles (e.g., the h2 tag you added) - Share Tech Mono */
+h2 {
+    font-family: 'Share Tech Mono', monospace; 
+    font-size: 1.2em;
+    color: var(--color-pastel-mint); /* Mint Green Subtitle */
+    text-align: center;
+    margin-top: -20px;
+    margin-bottom: 30px;
+    text-shadow: 0 0 5px var(--color-pastel-mint);
+}
+
+/* Style inputs and buttons */
+input, button {
+    padding: 12px;
+    border-radius: 15px; /* Maximum roundness for cute feel */
+    border: 2px solid var(--color-pastel-mint); 
+    margin-top: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    font-family: inherit;
+    font-size: 1em;
+}
+
+input {
+    background: var(--color-card-bg);
+    color: var(--color-text-dark);
+}
+
+input:focus {
+    border-color: var(--color-pastel-pink); /* Pink focus */
+    outline: none;
+}
+
+/* Button style (General/Secondary Buttons) */
+button {
+    background: var(--color-pastel-lavender); 
+    color: var(--color-text-dark); 
+    font-weight: 600;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+/* Primary buttons (Login/Sign Up) */
+#login-submit, #reg-submit {
+    background: var(--color-pastel-pink); /* Soft Pink primary action */
+    color: var(--color-card-bg); 
+    border: none;
+    font-weight: 700;
+}
+
+button:hover {
+    background: var(--color-pastel-mint); /* Mint hover for secondary buttons */
+    box-shadow: 0 4px 12px rgba(184, 224, 210, 0.7);
+}
+
+#login-submit:hover, #reg-submit:hover {
+    background: #FF8FAB; 
+    box-shadow: 0 4px 12px rgba(255, 179, 198, 0.8);
+}
+
+/* Form layout */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    color: var(--color-text-light);
+    font-size: 0.9em;
+}
+/* Style for the current user's name at the top of the home view */
+#upper-name {
+    /* Use the special alien font */
+    font-family: 'Major Mono Display', monospace; 
+    font-size: 2.5em;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 5px 0;
+    
+    /* Neon Mint Glow - a fun alien touch */
+    color: var(--color-pastel-darkmint);
+    text-shadow: 
+        0 0 4px var(--color-pastel-darkmint),
+        0 0 8px var(--color-pastel-darkmint);
+    
+    /* Subtle underline/separator */
+    border-bottom: 1px dashed var(--color-pastel-lavender);
+}
+/* ========================================================= */
+/* 📝 TASK LIST STYLES */
+/* ========================================================= */
+
+#tasks-holder {
+    list-style-type: decimal;
+    padding-left: 25px; 
+    color: var(--color-text-light); 
+}
 
 .task-item {
-    display: flex; /* Allows the text and the button to be on the same line */
-    justify-content: space-between; /* Pushes the button to the right */
-    align-items: center;
-    padding: 8px 12px;
-    margin-bottom: 5px;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-    cursor: default;
-}
-
-/* Hover Effect */
-.task-item:hover {
-    background-color: #e6e6e6;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Style for the Delete Button */
-.delete-task-btn {
-    background: none;
-    border: none;
-    color: red;
-    font-weight: bold;
+    display: block; 
+    padding: 10px 15px;
+    margin-bottom: 8px; 
+    border-radius: 15px; /* Consistent roundness */
+    transition: background-color 0.2s ease, transform 0.1s;
     cursor: pointer;
-    font-size: 16px;
-    opacity: 0; /* Initially hidden */
-    transition: opacity 0.2s;
-    padding: 5px;
-    margin-left: 10px;
+    border: 2px solid var(--color-pastel-mint); /* Mint Border */
+    color: var(--color-text-dark);
+    background: var(--color-card-bg);
 }
 
-/* Show the Delete Button ONLY when the list item is hovered */
-.task-item:hover .delete-task-btn {
-    opacity: 1; 
-}
-#tasks-holder {
-    list-style-type: decimal;}
-
-    /* style.css (Remove these blocks if you are not using the delete button) */
-
-.delete-task-btn {
-    /* ... all its styles ... */
-    opacity: 0; /* Initially hidden */
-}
-
-.task-item:hover .delete-task-btn {
-    /* ... */
-    opacity: 1; /* Show on hover */
+/* Hover Effect for Deletion */
+.task-item:hover {
+    background-color: var(--color-pastel-lavender); /* Lavender background on hover */
+    box-shadow: 0 3px 8px rgba(160, 129, 249, 0.4); 
+    transform: translateY(-1px); 
+    border-color: var(--color-pastel-pink); /* Pink border on hover */
 }

@@ -158,3 +158,16 @@ function addUser(username, name, password) {
     request.send();
   }
 }
+// function printNameAndUsername() {
+//   const request = new FajaxRequest();
+//   request.open("GET", `myserver/${username}`);
+//   request.onload = () => {
+//     if (request.response.status != 200) {
+//       console.error(
+//         `Failed to load info. Status: ${request.response.status}`,
+//         request.response.text
+//       );
+//       return ;
+//     }
+//   };
+// }
