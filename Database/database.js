@@ -102,6 +102,7 @@ function DBdeleteTask(username, taskIndex) {
 
   DBsavesNewUser(username, userObject);
   console.log("Task was deleted successfully.");
+  return true;
 }
 
 function DBdeleteAllTask(username) {
@@ -115,19 +116,21 @@ function DBdeleteAllTask(username) {
   itemArray.splice(1, itemArray.length - 1);
   DBsavesNewUser(username, userObject);
   console.log("All the tasks were deleted successfully.");
+  return true;
 }
 
 function DBaddTask(username, newtask) {
   const usernameJSON = localStorage.getItem(username);
   if (!usernameJSON) {
     console.error(`User '${username}' not found in Local Storage.`);
-    return;
+    return false;
   }
   const userObject = JSON.parse(usernameJSON);
   const itemArray = userObject._tasks;
   itemArray.push(newtask);
   DBsavesNewUser(username, userObject);
   console.log("New task saved successfully.");
+  return true;
 }
 
 function DBgetName(username) {

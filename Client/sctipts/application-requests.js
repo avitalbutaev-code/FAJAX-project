@@ -1,5 +1,5 @@
 function checkExistanceOfUser() {
-  return false;
+  return true;
 }
 function checkPassword() {
   return true;
@@ -28,16 +28,54 @@ function printAllTasks(username) {
       const tasksArray = JSON.parse(tasksJSONString);
       const tasksHolder = document.getElementById("tasks-holder");
       tasksHolder.innerHTML = "";
+
       tasksArray.forEach((element, index) => {
         if (index !== 0) {
-          tasksHolder.innerHTML += `<li>${element}</li>`;
+          //line for hover: adds class="task-item" and data-index
+          tasksHolder.innerHTML += `<li class="task-item" data-index"${index}>${element}</li>`;
         }
       });
     } catch (e) {
       console.error("Error parsing tasks data or processing array:", e);
     }
   };
+
   request.send();
 }
 
-function DBaddTask(user) {}
+function addTask(username, newTask) {
+  const request = new Request();
+  request.open("PUT", `myserver/${username}/tasks`, newTask);
+  request.onload = () => {
+    printAllTasks(username);
+  };
+  request.send();
+}
+
+function deleteAllTasks(username) {
+  const request = new Request();
+  request.open("DELETE", `myserver/${username}/tasks/all`);
+  request.onload = () => {
+    if (request.response.status === 200) {
+      console.log("All tasks deleted successfully.");
+      printAllTasks(username);
+    } else {
+      console.error("Failed to delete all tasks:", request.response.text);
+    }
+  };
+  request.send();
+}
+
+function deleteTask(username, index) {
+  const request = new Request();
+  request.open("DELETE", `myserver/${username}/tasks/${index}`);
+  request.onload = () => {
+    if (request.response.status === 200) {
+      console.log("the task was deleted successfully.");
+      printAllTasks(username);
+    } else {
+      console.error("Failed to delete the task:", request.response.text);
+    }
+  };
+  request.send();
+}

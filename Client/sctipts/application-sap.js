@@ -22,7 +22,6 @@ function renderView(viewId) {
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
             if (checkLogin()) {
-              // currentUser=
               renderView("home-template");
             } else {
               alert("Hm...Check your username and password");
@@ -64,10 +63,20 @@ function renderView(viewId) {
         currentUser = "";
       });
       document.getElementById("add-task").addEventListener("click", () => {
-        addTask(currentUser);
+        const taskInput = document.getElementById("task-input");
+        const newTask = taskInput.value.trim(); //remove white space
+        if (newTask) {
+          addTask(currentUser, newTask);
+          taskInput.value = "";
+        } else {
+          alert("please enter a task.");
+        }
       });
       document.getElementById("reduce-list").addEventListener("click", () => {
         deleteAllTasks(currentUser);
+      });
+      document.getElementById("tasks-holder").addEventListener("click", (e) => {
+        // deleteTask(currentUser , index)
       });
     }
 
