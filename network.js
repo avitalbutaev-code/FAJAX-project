@@ -14,6 +14,9 @@ function network(requestString) {
   const parsedURL = parseURL(requestPayload.url);
   console.log(parseURL);
   if (parsedURL.resource === "myserver") {
+    // setTimeout(() => {
+    //   return server(requestString);
+    // }, 1000);
     return server(requestString);
   } else {
     console.log("Can't get to the source");

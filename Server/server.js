@@ -51,7 +51,10 @@ function server(requestString) {
   }
 
   // --- POST/PUT/DELETE logic would go here ---
-
+  if (request.method === "POST" && parsedURL.resource === "myserver") {
+    if (parsedURL.id === "register") {
+    }
+  }
   return JSON.stringify({
     status: 400,
     text: "Bad Request or Unimplemented Endpoint.",

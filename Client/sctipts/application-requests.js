@@ -77,5 +77,35 @@ function printAllTasks(username) {
   };
   request.send();
 }
+function addUser(username, name, password) {
+  if (checkUserExists(username)) {
+    alert("Username already taken");
+  } else {
+    const request = new FajaxRequest();
+    request.open("GET", `myserver/${username}/tasks`);
+    request.onload = () => {
+      if (request.response.status != 200) {
+        console.error(
+          `Failed to load tasks. Status: ${request.response.status}`,
+          request.response.text
+        );
+        return;
+      }
+      const tasksJSONString = request.response.text;
 
-function DBaddTask(user) {}
+      try {
+        const tasksArray = JSON.parse(tasksJSONString);
+        const tasksHolder = document.getElementById("tasks-holder");
+        tasksHolder.innerHTML = "";
+        tasksArray.forEach((element, index) => {
+          if (index !== 0) {
+            tasksHolder.innerHTML += `<li>${element}</li>`;
+          }
+        });
+      } catch (e) {
+        console.error("Error parsing tasks data or processing array:", e);
+      }
+    };
+    request.send();
+  }
+}

@@ -26,7 +26,11 @@ class FajaxRequest {
       url: this.url,
       body: this.body,
     });
+
     const rawResponse = network(payload);
+    // while (rawResponse === undefined) {
+    //   rawResponse = network(payload);
+    // }
     console.log(rawResponse);
     try {
       const parsedResponse = JSON.parse(rawResponse);
