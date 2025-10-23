@@ -93,6 +93,7 @@ function DBdeleteTask(username, taskIndex) {
 
   DBsavesNewUser(username, userObject);
   console.log("Task was deleted successfully.");
+  return true;
 }
 
 function DBdeleteAllTask(username) {
@@ -103,6 +104,7 @@ function DBdeleteAllTask(username) {
   itemArray.splice(1, itemArray.length - 1);
   DBsavesNewUser(username, userObject);
   console.log("All the tasks were deleted successfully.");
+  return true;
 }
 
 function DBaddTask(username, newtask) {
@@ -113,6 +115,7 @@ function DBaddTask(username, newtask) {
   itemArray.push(newtask);
   DBsavesNewUser(username, userObject);
   console.log("New task saved successfully.");
+  return true;
 }
 
 function DBgetName(username) {

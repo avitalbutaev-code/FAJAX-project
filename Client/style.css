@@ -1,0 +1,39 @@
+/* style.css */
+
+.task-item {
+    display: flex; /* Allows the text and the button to be on the same line */
+    justify-content: space-between; /* Pushes the button to the right */
+    align-items: center;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    cursor: default;
+}
+
+/* Hover Effect */
+.task-item:hover {
+    background-color: #e6e6e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the Delete Button */
+.delete-task-btn {
+    background: none;
+    border: none;
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.2s;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+/* Show the Delete Button ONLY when the list item is hovered */
+.task-item:hover .delete-task-btn {
+    opacity: 1; 
+}
+#tasks-holder {
+    list-style-type: decimal;}
