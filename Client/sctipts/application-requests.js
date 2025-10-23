@@ -1,18 +1,56 @@
-function checkExistanceOfUser() {
-  return false;
+function checkUserExists(username) {
+  const request = new FajaxRequest();
+  console.log("GET", "myserver/" + username);
+  request.open("GET", "myserver/" + username);
+  request.onload = () => {
+    if (request.response.status != 200) {
+      console.error(
+        `User not found. Status: ${request.response.status}`,
+        request.response.text
+      );
+      return false;
+    }
+    console.log("Exists");
+    return true;
+  };
+  return request.send();
 }
-function checkPassword() {
-  return true;
+function getUserPassword(username) {
+  const request = new FajaxRequest();
+  request.open("GET", `myserver/${username}/password`);
+  console.log(request);
+  request.onload = () => {
+    if (request.response.status != 200) {
+      console.error(
+        `User not found. Status: ${request.response.status}`,
+        request.response.text
+      );
+      return false;
+    }
+    // console.log(`this user password ` + request.response.text);
+    // console.log(request.response.text);
+    const result = request.response.text;
+    return result;
+  };
+  return request.send();
+}
+function checkPassword(username, password) {
+  const userPassword = getUserPassword(username);
+  console.log(userPassword, password);
+  console.log(userPassword === password);
+  return userPassword === password;
 }
 
-function checkLogin() {
-  if (checkExistanceOfUser() && checkPassword()) {
+function checkLogin(username, password) {
+  if (checkUserExists(username) && checkPassword(username, password)) {
+    console.log(checkUserExists() && checkPassword());
     return true;
   }
   return false;
 }
+function getUserInfo(username) {}
 function printAllTasks(username) {
-  const request = new Request();
+  const request = new FajaxRequest();
   request.open("GET", `myserver/${username}/tasks`);
   request.onload = () => {
     if (request.response.status != 200) {

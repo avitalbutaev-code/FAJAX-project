@@ -58,10 +58,7 @@ DBsavesNewUser("lol", davidUser);
 
 function DBchangePassword(username, newpassword) {
   const usernameJSON = localStorage.getItem(username);
-  if (!usernameJSON) {
-    console.error(`User '${username}' not found in Local Storage.`);
-    return;
-  }
+  if (!DBexists(username)) return false;
   const userObject = JSON.parse(usernameJSON);
   userObject._password = newpassword;
   DBsavesNewUser(username, userObject);
@@ -70,10 +67,7 @@ function DBchangePassword(username, newpassword) {
 
 function DBchangeName(username, newname) {
   const usernameJSON = localStorage.getItem(username);
-  if (!usernameJSON) {
-    console.error(`User '${username}' not found in Local Storage.`);
-    return;
-  }
+  if (!DBexists(username)) return false;
   const userObject = JSON.parse(usernameJSON);
   userObject._name = newname;
   DBsavesNewUser(username, userObject);
@@ -87,10 +81,7 @@ function DBdeleteUser(username) {
 
 function DBdeleteTask(username, taskIndex) {
   const usernameJSON = localStorage.getItem(username);
-  if (!usernameJSON) {
-    console.error(`User '${username}' not found in Local Storage.`);
-    return;
-  }
+  if (!DBexists(username)) return false;
   const userObject = JSON.parse(usernameJSON);
   const itemArray = userObject._tasks;
 
@@ -106,10 +97,7 @@ function DBdeleteTask(username, taskIndex) {
 
 function DBdeleteAllTask(username) {
   const usernameJSON = localStorage.getItem(username);
-  if (!usernameJSON) {
-    console.error(`User '${username}' not found in Local Storage.`);
-    return;
-  }
+  if (!DBexists(username)) return false;
   const userObject = JSON.parse(usernameJSON);
   const itemArray = userObject._tasks;
   itemArray.splice(1, itemArray.length - 1);
@@ -119,10 +107,7 @@ function DBdeleteAllTask(username) {
 
 function DBaddTask(username, newtask) {
   const usernameJSON = localStorage.getItem(username);
-  if (!usernameJSON) {
-    console.error(`User '${username}' not found in Local Storage.`);
-    return;
-  }
+  if (!DBexists(username)) return false;
   const userObject = JSON.parse(usernameJSON);
   const itemArray = userObject._tasks;
   itemArray.push(newtask);
@@ -132,10 +117,8 @@ function DBaddTask(username, newtask) {
 
 function DBgetName(username) {
   const usernameJSON = localStorage.getItem(username);
-  if (!usernameJSON) {
-    console.error(`User '${username}' not found in Local Storage.`);
-    return;
-  } else {
+  if (!DBexists(username)) return false;
+  else {
     const userObject = JSON.parse(usernameJSON);
     return userObject._name;
   }
@@ -143,10 +126,8 @@ function DBgetName(username) {
 
 function DBgetPassword(username) {
   const usernameJSON = localStorage.getItem(username);
-  if (!usernameJSON) {
-    console.error(`User '${username}' not found in Local Storage.`);
-    return;
-  } else {
+  if (!DBexists(username)) return false;
+  else {
     const userObject = JSON.parse(usernameJSON);
     return userObject._password;
   }
@@ -154,11 +135,17 @@ function DBgetPassword(username) {
 
 function DBgetTasks(username) {
   const usernameJSON = localStorage.getItem(username);
-  if (!usernameJSON) {
-    console.error(`User ${username} not found in Local Storage.`);
-    return;
-  } else {
+  if (!DBexists(username)) return false;
+  else {
     const userObject = JSON.parse(usernameJSON);
     return JSON.stringify(userObject._tasks);
   }
+}
+function DBexists(username) {
+  const usernameJSON = localStorage.getItem(username);
+  if (!usernameJSON) {
+    console.error("User " + username + " not found in Local Storage.");
+    return false;
+  }
+  return true;
 }

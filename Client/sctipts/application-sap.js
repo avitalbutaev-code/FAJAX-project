@@ -19,10 +19,11 @@ function renderView(viewId) {
         document
           .getElementById("login-submit")
           .addEventListener("click", () => {
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-            if (checkLogin()) {
-              // currentUser=
+            const username = String(document.getElementById("username").value);
+            const password = String(document.getElementById("password").value);
+            console.log(username, password);
+            if (checkLogin(username, password)) {
+              currentUser = username;
               renderView("home-template");
             } else {
               alert("Hm...Check your username and password");
@@ -55,6 +56,8 @@ function renderView(viewId) {
       });
     }
     if (viewId === "home-template") {
+      document.getElementById("upper-name").innerHTML = "";
+      document.getElementById("upper-name").innerHTML = currentUser;
       printAllTasks(currentUser);
       document.getElementById("profileBtn").addEventListener("click", () => {
         renderView("profile-template");
