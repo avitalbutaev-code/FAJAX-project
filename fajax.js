@@ -20,30 +20,33 @@ class FajaxRequest {
     }
   }
 
-  send() {
+  // Changed to async to await the network response
+  async send() {
     const payload = JSON.stringify({
       method: this.method,
       url: this.url,
       body: this.body,
     });
 
-    const rawResponse = network(payload);
-    // while (rawResponse === undefined) {
-    //   rawResponse = network(payload);
-    // }
-    console.log(rawResponse);
+    // Await the asynchronous network call
+    const rawResponse = await network(payload);
+
+    console.log("Raw Response received:", rawResponse);
+
     try {
       const parsedResponse = JSON.parse(rawResponse);
-      console.log(parsedResponse);
       this.response.status = parsedResponse.status;
       this.response.text = parsedResponse.text || parsedResponse.responseText;
-      const responseText = this.response.text;
     } catch (e) {
       this.response.status = 500;
       this.response.text = "Error: Could not parse response.";
     }
+
+    // Call onload, but the main function returns the response object
     if (typeof this.onload === "function") {
-      return this.onload();
+      this.onload();
     }
+
+    return this.response;
   }
 }

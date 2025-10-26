@@ -18,7 +18,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: rgb(62, 33, 71);
+  background-color: rgb(79, 68, 82);
   color: var(--color-text-dark);
   font-family: "Alan Sans", sans-serif;
   display: flex;
@@ -71,6 +71,7 @@ h2 {
 label {
   font-size: 1.1rem; 
   font-weight: 700;
+  color: white;
 }
 
 input[type="text"],

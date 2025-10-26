@@ -1,29 +1,36 @@
 function network(requestString) {
-  console.log("In network");
+  console.log("In network (Promise)");
 
   let requestPayload;
   try {
     requestPayload = JSON.parse(requestString);
   } catch (e) {
-    return JSON.stringify({
-      status: 500,
-      text: "Error: Malformed request payload.",
-    });
+    return Promise.resolve(
+      JSON.stringify({
+        status: 500,
+        text: "Error: Malformed request payload.",
+      })
+    );
   }
 
   const parsedURL = parseURL(requestPayload.url);
-  console.log(parseURL);
+
   if (parsedURL.resource === "myserver") {
-    // setTimeout(() => {
-    //   return server(requestString);
-    // }, 1000);
-    return server(requestString);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const answer = server(requestString);
+        console.log("Server responded.");
+        resolve(answer);
+      }, 500);
+    });
   } else {
     console.log("Can't get to the source");
-    return JSON.stringify({
-      status: 404,
-      text: "Network destination not recognized.",
-    });
+    return Promise.resolve(
+      JSON.stringify({
+        status: 404,
+        text: "Network destination not recognized.",
+      })
+    );
   }
 }
 

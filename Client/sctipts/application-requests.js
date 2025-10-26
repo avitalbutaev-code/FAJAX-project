@@ -1,53 +1,52 @@
-function checkUserExists(username) {
+async function checkUserExists(username) {
   const request = new FajaxRequest();
   console.log("GET", "myserver/" + username);
   request.open("GET", "myserver/" + username);
-  request.onload = () => {
-    if (request.response.status != 200) {
-      console.error(
-        `User not found. Status: ${request.response.status}`,
-        request.response.text
-      );
-      return false;
-    }
-    console.log("Exists");
-    return true;
-  };
-  return request.send();
+
+  const response = await request.send();
+
+  if (response.status != 200) {
+    console.error(`User not found. Status: ${response.status}`, response.text);
+    return false;
+  }
+  console.log("Exists");
+  return true;
 }
-function getUserPassword(username) {
+
+async function getUserPassword(username) {
   const request = new FajaxRequest();
   request.open("GET", `myserver/${username}/password`);
-  console.log(request);
-  request.onload = () => {
-    if (request.response.status != 200) {
-      console.error(
-        `User not found. Status: ${request.response.status}`,
-        request.response.text
-      );
-      return false;
-    }
-    // console.log(`this user password ` + request.response.text);
-    // console.log(request.response.text);
-    const result = request.response.text;
-    return result;
-  };
-  return request.send();
+
+  const response = await request.send();
+
+  if (response.status != 200) {
+    console.error(`User not found. Status: ${response.status}`, response.text);
+    return false;
+  }
+
+  return response.text;
 }
-function checkPassword(username, password) {
-  const userPassword = getUserPassword(username);
+
+async function checkPassword(username, password) {
+  const userPassword = await getUserPassword(username);
+
   console.log(userPassword, password);
   console.log(userPassword === password);
+
   return userPassword === password;
 }
 
-function checkLogin(username, password) {
-  if (checkUserExists(username) && checkPassword(username, password)) {
-    console.log(checkUserExists() && checkPassword());
+async function checkLogin(username, password) {
+  const userExists = await checkUserExists(username);
+  const passwordMatches = await checkPassword(username, password);
+
+  if (userExists && passwordMatches) {
+    console.log("Login successful");
     return true;
   }
   return false;
 }
+
 function printAllTasks(username) {
   const request = new FajaxRequest();
   request.open("GET", `myserver/${username}/tasks`);
@@ -123,7 +122,8 @@ function deleteTask(username, index) {
   };
   request.send();
 }
-function addNewUser(username, name, password) {
+
+async function addNewUser(username, name, password) {
   const request = new FajaxRequest();
   request.open(
     "POST",
@@ -134,14 +134,15 @@ function addNewUser(username, name, password) {
       _tasks: [undefined],
     })
   );
-  request.onload = () => {
-    if (request.response.status != 200) {
-      console.error(
-        `Failed to add user. Status: ${request.response.status}`,
-        request.response.text
-      );
-      return;
-    }
-  };
-  return request.send();
+
+  const response = await request.send();
+
+  if (response.status != 200) {
+    console.error(
+      `Failed to add user. Status: ${response.status}`,
+      response.text
+    );
+    return false;
+  }
+  return true;
 }
