@@ -9,30 +9,35 @@ function renderView(viewId) {
   if (
     viewId === "home-template" ||
     viewId === "register-template" ||
-    viewId === "login-template"
+    viewId === "login-template" ||
+    viewId === "loading-template"
   ) {
     const template = document.getElementById(viewId);
     if (template) {
       const content = template.content.cloneNode(true);
       appContainer.appendChild(content);
-
       if (viewId === "login-template") {
         document
           .getElementById("login-submit")
           .addEventListener("click", async () => {
             const username = String(document.getElementById("username").value);
             const password = String(document.getElementById("password").value);
-            console.log(username, password);
 
-            if (await checkLogin(username, password)) {
+            if (!username || !password) {
+              alert("Please enter both username and password.");
+              return;
+            }
+            renderView("loading-template");
+            const loginSuccessful = await checkLogin(username, password);
+            if (loginSuccessful) {
               currentUser = username;
               renderView("home-template");
             } else {
-              alert("Hm...Check your username and password");
+              renderView("login-template");
+              alert("Hm...Something is wrong");
             }
           });
       }
-
       if (viewId === "register-template") {
         document.getElementById("loginBtn").addEventListener("click", () => {
           renderView("login-template");
@@ -40,7 +45,6 @@ function renderView(viewId) {
         document
           .getElementById("reg-submit")
           .addEventListener("click", async () => {
-            // Mark as async
             const username = document.getElementById("reg-username").value;
             const name = document.getElementById("reg-name").value;
             const password = document.getElementById("reg-password").value;

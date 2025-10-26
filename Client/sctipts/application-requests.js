@@ -20,6 +20,7 @@ async function getUserPassword(username) {
   const response = await request.send();
 
   if (response.status != 200) {
+    alert("Not found((");
     console.error(`User not found. Status: ${response.status}`, response.text);
     return false;
   }
@@ -38,13 +39,18 @@ async function checkPassword(username, password) {
 
 async function checkLogin(username, password) {
   const userExists = await checkUserExists(username);
+  if (userExists === false) {
+    return;
+  }
   const passwordMatches = await checkPassword(username, password);
 
   if (userExists && passwordMatches) {
     console.log("Login successful");
     return true;
+  } else {
+    alert("User not found");
+    return false;
   }
-  return false;
 }
 
 function printAllTasks(username) {
@@ -52,6 +58,7 @@ function printAllTasks(username) {
   request.open("GET", `myserver/${username}/tasks`);
   request.onload = () => {
     if (request.response.status != 200) {
+      alert("Not found((");
       console.error(
         `Failed to load tasks. Status: ${request.response.status}`,
         request.response.text
@@ -90,6 +97,12 @@ function addTask(username, newTask) {
   const request = new FajaxRequest();
   request.open("PUT", `myserver/${username}/tasks`, newTask);
   request.onload = () => {
+    if (request.response.status === 200) {
+      console.log("All tasks deleted successfully.");
+    } else {
+      alert("Not found((");
+      console.error("Failed to add task:", request.response.text);
+    }
     printAllTasks(username);
   };
   request.send();
@@ -103,6 +116,7 @@ function deleteAllTasks(username) {
       console.log("All tasks deleted successfully.");
       printAllTasks(username);
     } else {
+      alert("Not found((");
       console.error("Failed to delete all tasks:", request.response.text);
     }
   };
@@ -117,6 +131,7 @@ function deleteTask(username, index) {
       console.log("the task was deleted successfully.");
       printAllTasks(username);
     } else {
+      alert("Not found((");
       console.error("Failed to delete the task:", request.response.text);
     }
   };
@@ -138,6 +153,7 @@ async function addNewUser(username, name, password) {
   const response = await request.send();
 
   if (response.status != 200) {
+    alert("Not found((");
     console.error(
       `Failed to add user. Status: ${response.status}`,
       response.text

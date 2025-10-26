@@ -1,5 +1,5 @@
 function network(requestString) {
-  console.log("In network (Promise)");
+  console.log("In network");
 
   let requestPayload;
   try {
@@ -25,6 +25,7 @@ function network(requestString) {
     });
   } else {
     console.log("Can't get to the source");
+    alert("Oops...something went wrong");
     return Promise.resolve(
       JSON.stringify({
         status: 404,

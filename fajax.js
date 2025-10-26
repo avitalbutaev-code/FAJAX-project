@@ -20,7 +20,6 @@ class FajaxRequest {
     }
   }
 
-  // Changed to async to await the network response
   async send() {
     const payload = JSON.stringify({
       method: this.method,
@@ -28,7 +27,6 @@ class FajaxRequest {
       body: this.body,
     });
 
-    // Await the asynchronous network call
     const rawResponse = await network(payload);
 
     console.log("Raw Response received:", rawResponse);
@@ -42,7 +40,6 @@ class FajaxRequest {
       this.response.text = "Error: Could not parse response.";
     }
 
-    // Call onload, but the main function returns the response object
     if (typeof this.onload === "function") {
       this.onload();
     }
