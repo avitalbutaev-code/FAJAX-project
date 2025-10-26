@@ -8,8 +8,7 @@ function renderView(viewId) {
   if (
     viewId === "home-template" ||
     viewId === "register-template" ||
-    viewId === "login-template" ||
-    viewId === "profile-template"
+    viewId === "login-template"
   ) {
     const template = document.getElementById(viewId);
     if (template) {
@@ -39,7 +38,14 @@ function renderView(viewId) {
           const name = document.getElementById("reg-name").value;
           const password = document.getElementById("reg-password").value;
           const confirm = document.getElementById("reg-confirm-password").value;
-          if (password === confirm && !checkUserExists(username)) {
+          if (
+            password === confirm &&
+            !checkUserExists(username) &&
+            username &&
+            name &&
+            password &&
+            confirm
+          ) {
             addNewUser(username, name, password);
             alert("Registration successful! Please log in.");
             renderView("login-template");
@@ -61,16 +67,13 @@ function renderView(viewId) {
       document.getElementById("upper-name").innerHTML = "";
       document.getElementById("upper-name").innerHTML = currentUser;
       printAllTasks(currentUser);
-      document.getElementById("profileBtn").addEventListener("click", () => {
-        renderView("profile-template");
-      });
       document.getElementById("logoutBtn").addEventListener("click", () => {
         renderView("login-template");
         currentUser = "";
       });
       document.getElementById("add-task").addEventListener("click", () => {
         const taskInput = document.getElementById("task-input");
-        const newTask = taskInput.value.trim(); //remove white space
+        const newTask = taskInput.value.trim();
         if (newTask) {
           addTask(currentUser, newTask);
           taskInput.value = "";
@@ -80,34 +83,6 @@ function renderView(viewId) {
       });
       document.getElementById("reduce-list").addEventListener("click", () => {
         deleteAllTasks(currentUser);
-      });
-      document.getElementById("tasks-holder").addEventListener("click", (e) => {
-        // deleteTask(currentUser , index)
-      });
-    }
-
-    if (viewId === "profile-template") {
-      document.getElementById("user-info").innerHTML =
-        // printNameAndUsername(currentUser);
-        document.getElementById("homeBtn").addEventListener("click", () => {
-          renderView("home-template");
-        });
-      document.getElementById("logoutBtn").addEventListener("click", () => {
-        renderView("login-template");
-        currentUser = "";
-      });
-      document
-        .getElementById("delete-profile")
-        .addEventListener("click", () => {
-          deleteUser(currentUser);
-        });
-      document
-        .getElementById("resset-password")
-        .addEventListener("click", () => {
-          ressetPassword(currentUser);
-        });
-      document.getElementById("edit-name").addEventListener("click", () => {
-        changeName(currentUser);
       });
     }
   }

@@ -6,7 +6,6 @@ function server(requestString) {
   const username = parsedURL.id;
   const itemIndex = parsedURL.subsubresource;
 
-  // --- GET Requests ---
   if (request.method === "GET" && parsedURL.resource === "myserver") {
     if (parsedURL.subresource === "tasks") {
       const tasksString = DBgetTasks(username);
@@ -51,9 +50,6 @@ function server(requestString) {
     }
   }
 
-  // --- POST/PUT/DELETE logic would go here ---
-
-  // --- PUT here ---
   if (request.method === "PUT" && parsedURL.resource === "myserver") {
     if (parsedURL.subresource === "tasks") {
       const hasChaneged = DBaddTask(username, request.body);
@@ -71,7 +67,7 @@ function server(requestString) {
       }
     }
   }
-  //DELETE goes here
+
   if (request.method === "DELETE" && parsedURL.resource === "myserver") {
     if (
       parsedURL.subresource === "tasks" &&
@@ -106,7 +102,6 @@ function server(requestString) {
     }
   }
 
-  //POST here
   if (request.method === "POST" && parsedURL.resource === "myserver") {
     if (parsedURL.subresource === "register") {
       const userObject = JSON.parse(request.body);

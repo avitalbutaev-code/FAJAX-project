@@ -38,30 +38,12 @@ class User {
     console.log("Deleted all the tasks successfully.");
   }
 }
-
-const sharonUser = new User("sharon", "4321");
-sharonUser.addTaskPrivate("Buy groceries");
-sharonUser.addTaskPrivate("Walk the dog");
-sharonUser.password = "1212";
-
-const davidUser = new User("david", "5555");
-davidUser.addTaskPrivate("Buy groceries");
-davidUser.addTaskPrivate("Buy cat");
-
-// function DBsavesNewUser(username, userObject) {
-//   const key = `${username}`;
-//   localStorage.setItem(key, JSON.stringify(userObject));
-//   console.log(`User '${username}' saved under key '${key}'.`);
-//   return true;
-// }
 function DBsavesNewUser(username, userObject) {
   const key = `${username}`;
   localStorage.setItem(key, JSON.stringify(userObject));
   console.log(`User '${username}' saved under key '${key}'.`);
   return true;
 }
-// DBsavesNewUser("pinkie", sharonUser);
-// DBsavesNewUser("lol", davidUser);
 
 function DBchangePassword(username, newpassword) {
   const usernameJSON = localStorage.getItem(username);
@@ -70,6 +52,7 @@ function DBchangePassword(username, newpassword) {
   userObject._password = newpassword;
   DBsavesNewUser(username, userObject);
   console.log(`The new password ${newpassword} was saved.`);
+  return true;
 }
 
 function DBchangeName(username, newname) {
@@ -79,11 +62,13 @@ function DBchangeName(username, newname) {
   userObject._name = newname;
   DBsavesNewUser(username, userObject);
   console.log(`The new name ${newname} was saved.`);
+  return true;
 }
 
 function DBdeleteUser(username) {
   localStorage.removeItem(username);
   console.log(`User '${username}' was deleted successfully.`);
+  return true;
 }
 
 function DBdeleteTask(username, taskIndex) {

@@ -33,6 +33,6 @@ function parseURL(url) {
     resource: parts[0] || null,
     id: parts[1] || null,
     subresource: parts[2] || null,
-    subsubresource: parts[3] || null, // e.g., "all" or the task index
+    subsubresource: parts[3] || null,
   };
 }
